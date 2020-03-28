@@ -8,12 +8,21 @@ const FaceRecoginition = ({imageURL,box}) => {
 		<img alt="" 
 		src={imageURL} 
 		id="inputImage"/>
-		<div
-		className="bounding-Box"		
-		style={{top: box.TR, right: box.RC, 
-		bottom: box.BR, left: box.LC}} 
- 		>
- 		</div>
+		{
+			box.map((boxData,index) => {
+				return(
+					<div
+					key={index}
+					className="bounding-Box"		
+					style={{top: boxData.TR, 
+							right: boxData.RC, 
+							bottom: boxData.BR, 
+							left: boxData.LC}} 
+					>
+					</div>
+					);
+				})
+		}
 		</div>
 		</div>
 	);	

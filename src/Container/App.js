@@ -59,20 +59,26 @@ class App extends React.Component{
   }
 
   faceLocation = (data) => {
-    const face= data.outputs[0].data.regions[0].region_info.bounding_box;
+    let face;
     const image = document.getElementById('inputImage');
     const width = Number(image.width);
     const height = Number(image.height);
-    return{
-      RC : width - (face.right_col * width),
-      LC : face.left_col * width,
-      TR : face.top_row * height,
-      BR : height - (face.bottom_row * height)
+    const noFaces = (data.outputs[0].data.regions).length;
+    for(let i=0;i<noFaces;i++){
+        face = data.outputs[0].data.regions[i].region_info.bounding_box;
+        this.displayFace({
+        RC : width - (face.right_col * width),
+        LC : face.left_col * width,
+        TR : face.top_row * height,
+        BR : height - (face.bottom_row * height)
+        });
     }
   }
 
   displayFace = (boxData) => {
-     this.setState({box : boxData});
+     this.setState({
+      box: this.state.box.concat(boxData)
+     });
   } 
 
   onInputChange = (event) =>{
@@ -88,7 +94,12 @@ class App extends React.Component{
     return (false)
   }
 
+  clearBox = () => {
+    this.setState({ box : [] })
+  }
+
   onButtonClick = () => {
+    this.clearBox();
     this.setState({imageURL : this.state.input});
     fetch('https://vast-beyond-01389.herokuapp.com/imageurl', {
         method: 'post',
@@ -116,7 +127,7 @@ class App extends React.Component{
         })
         .catch(console.log);
 
-        this.displayFace(this.faceLocation(response))
+        this.faceLocation(response);
       }
 
 
