@@ -28,7 +28,7 @@ class Register extends React.Component{
 		const { email, password, name } = this.state;
 
 		if(this.props.validateEmail(email) && email && password && name){
-			fetch('http://localhost:3000/register', {
+			fetch('https://vast-beyond-01389.herokuapp.com/register', {
 				method: 'post',
 				headers: {
 					'Content-Type': 'application/json'
