@@ -28,7 +28,7 @@ const Options = {
 const initialState = {
       input: '',
       imageURL: '',
-      box: {},
+      box: [],
       route : 'SignIn',
       page : 'SignIn',
       user: {
