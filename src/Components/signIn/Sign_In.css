@@ -1,0 +1,12 @@
+article{ 
+	width : 38%;
+ 	height: auto;
+ 	margin : 30px;
+ 	margin-top: 85px;
+ }
+
+@media screen and (max-width: 800px){
+	article{
+		width : 60%;
+	}
+}
